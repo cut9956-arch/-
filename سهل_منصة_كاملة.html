@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>سَهْل — للقدرات العامة</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0D1B3E;--navy2:#1A2B55;--navy3:#243266;
+  --gold:#F5A623;--gold2:#E8940F;--gold-l:#FEF3E2;
+  --green:#2ECC71;--green-d:#1D9E57;--green-l:#E5F9EE;
+  --purple:#7B68EE;--purple-l:#EEEDFE;
+  --red:#E74C3C;--red-l:#FDEDEC;
+  --blue:#3498DB;--blue-l:#EAF4FB;
+  --gray:#F5F7FA;--gray2:#EEF2F7;--gray3:#E2E8F0;
+  --text:#1A2B4A;--text2:#4A6080;--text3:#8A9DB0;
+  --brd:#D8E2EE;--white:#fff;
+  --r:10px;--rl:14px;--rxl:18px;
+  --shadow:0 2px 8px rgba(13,27,62,.07);
+  --shadow-md:0 4px 20px rgba(13,27,62,.12);
+}
+body{font-family:'Cairo',sans-serif;background:var(--gray);color:var(--text);overflow-x:hidden}
+button,input{font-family:'Cairo',sans-serif}
+
+/* ── KEYFRAMES ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes scaleIn{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
+@keyframes slideRight{from{opacity:0;transform:translateX(-16px)}to{opacity:1;transform:translateX(0)}}
+@keyframes barFill{from{width:0}to{width:var(--target)}}
+@keyframes countUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(245,166,35,.4)}50%{box-shadow:0 0 0 8px rgba(245,166,35,0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes shimmer{0%{background-position:-200%}100%{background-position:200%}}
+@keyframes notifBounce{0%,100%{transform:scale(1)}50%{transform:scale(1.3)}}
+.fu{animation:fadeUp .38s cubic-bezier(.22,1,.36,1) both}
+.si{animation:scaleIn .3s ease both}
+.sr{animation:slideRight .3s ease both}
+
+/* ── LAYOUT ── */
+.shell{display:flex;height:100vh;overflow:hidden}
+.sidebar{width:200px;background:var(--navy);flex-shrink:0;display:flex;flex-direction:column;overflow-y:auto;overflow-x:hidden}
+.main-area{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.topbar{background:var(--white);border-bottom:1px solid var(--brd);padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;gap:12px}
+.content{flex:1;overflow-y:auto;padding:20px 24px}
+@media(max-width:900px){.sidebar{display:none}.content{padding:14px}}
+
+/* ── SIDEBAR ── */
+.sb-logo{padding:18px 16px 14px;border-bottom:1px solid rgba(255,255,255,.08)}
+.sb-logo-inner{display:flex;align-items:center;gap:10px}
+.sb-logo-icon{width:38px;height:38px;background:var(--gold);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:20px}
+.sb-logo-text{color:#fff;font-size:16px;font-weight:800}
+.sb-logo-sub{color:rgba(255,255,255,.45);font-size:10px}
+.sb-avatar-section{padding:14px 16px;border-bottom:1px solid rgba(255,255,255,.08)}
+.sb-avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#FFD700);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;color:var(--navy);margin-bottom:8px;border:2.5px solid rgba(255,255,255,.25)}
+.sb-uname{color:#fff;font-size:13px;font-weight:600}
+.sb-ulvl{color:rgba(255,255,255,.5);font-size:11px;margin-top:2px}
+.sb-nav{padding:10px 10px;flex:1}
+.sb-link{display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:9px;cursor:pointer;color:rgba(255,255,255,.55);font-size:12px;font-weight:500;transition:all .18s;border:none;background:transparent;width:100%;text-align:right}
+.sb-link i{font-size:18px;flex-shrink:0}
+.sb-link:hover{background:rgba(255,255,255,.07);color:rgba(255,255,255,.9)}
+.sb-link.active{background:var(--gold);color:var(--navy);font-weight:700}
+.sb-link.active i{color:var(--navy)}
+.sb-challenge{margin:12px 10px;background:linear-gradient(135deg,#B8860B,var(--gold));border-radius:12px;padding:14px 12px;text-align:center}
+.sb-challenge-crown{font-size:24px;margin-bottom:4px}
+.sb-challenge-t{color:#fff;font-size:11px;font-weight:700;margin-bottom:2px}
+.sb-challenge-s{color:rgba(255,255,255,.75);font-size:10px;margin-bottom:8px}
+.sb-challenge-btn{background:rgba(255,255,255,.2);color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:7px;padding:6px 10px;font-size:10px;font-weight:600;cursor:pointer;width:100%;font-family:'Cairo',sans-serif;transition:background .18s}
+.sb-challenge-btn:hover{background:rgba(255,255,255,.3)}
+
+/* ── TOPBAR ── */
+.tb-left{display:flex;align-items:center;gap:12px}
+.tb-search{display:flex;align-items:center;gap:8px;background:var(--gray);border:1px solid var(--brd);border-radius:22px;padding:7px 16px;min-width:260px;transition:border-color .18s}
+.tb-search:focus-within{border-color:var(--gold)}
+.tb-search input{border:none;background:transparent;font-size:12px;color:var(--text);outline:none;width:100%}
+.tb-search i{color:var(--text3);font-size:16px}
+.tb-right{display:flex;align-items:center;gap:14px}
+.tb-notif{position:relative;cursor:pointer;color:var(--text2);font-size:20px;transition:color .18s}
+.tb-notif:hover{color:var(--navy)}
+.tb-notif-dot{position:absolute;top:-2px;right:-2px;width:16px;height:16px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;border:2px solid #fff;animation:notifBounce 2s infinite}
+.tb-date{text-align:left}
+.tb-date-d{font-size:13px;font-weight:600;color:var(--text)}
+.tb-date-dt{font-size:11px;color:var(--text3)}
+.tb-streak{background:var(--navy);border-radius:10px;padding:7px 12px;display:flex;align-items:center;gap:6px;cursor:pointer;transition:transform .18s}
+.tb-streak:hover{transform:scale(1.03)}
+.tb-streak-ico{font-size:18px}
+.tb-streak-n{color:#fff;font-size:16px;font-weight:800}
+.tb-streak-l{color:rgba(255,255,255,.6);font-size:9px}
+.tb-greeting{text-align:right}
+.tb-greet-h{font-size:15px;font-weight:700;color:var(--text)}
+.tb-greet-s{font-size:11px;color:var(--text3)}
+
+/* ── PAGES ── */
+.page{display:none}.page.active{display:block;animation:fadeUp .35s cubic-bezier(.22,1,.36,1)}
+
+/* ── STAT CARDS ── */
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:18px}
+.stat-card{background:var(--white);border:1px solid var(--brd);border-radius:var(--rl);padding:16px;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow);transition:transform .2s}
+.stat-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.stat-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.stat-info{flex:1}
+.stat-val{font-size:22px;font-weight:800;color:var(--text);line-height:1}
+.stat-sub{font-size:11px;color:var(--text3);margin-top:3px}
+.stat-delta{font-size:10px;margin-top:2px;display:flex;align-items:center;gap:2px}
+
+/* ── CARDS ── */
+.card{background:var(--white);border:1px solid var(--brd);border-radius:var(--rl);padding:16px;box-shadow:var(--shadow)}
+.card-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
+.card-title-l{display:flex;align-items:center;gap:6px}
+.view-all{font-size:11px;color:var(--gold);cursor:pointer;font-weight:500;text-decoration:none}
+.view-all:hover{text-decoration:underline}
+
+/* ── GRID LAYOUTS ── */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px}
+.grid-13{display:grid;grid-template-columns:1fr 2fr;gap:16px;margin-bottom:16px}
+.grid-31{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:16px}
+@media(max-width:1100px){.grid-2,.grid-3,.grid-13,.grid-31{grid-template-columns:1fr}}
+
+/* ── PROGRESS BARS ── */
+.prog-item{margin-bottom:10px}
+.prog-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px}
+.prog-label{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--text)}
+.prog-icon{font-size:14px}
+.prog-pct{font-size:12px;font-weight:700}
+.prog-bg{height:7px;background:var(--gray2);border-radius:4px;overflow:hidden}
+.prog-fill{height:100%;border-radius:4px;transition:width 1.4s cubic-bezier(.22,1,.36,1)}
+.prog-status{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
+.status-done{background:var(--green-l);color:var(--green-d)}
+.status-mid{background:var(--gold-l);color:var(--gold2)}
+.status-low{background:var(--red-l);color:var(--red)}
+.status-lock{background:var(--gray2);color:var(--text3)}
+
+/* ── BADGES ── */
+.badge{display:inline-flex;align-items:center;gap:3px;padding:3px 9px;border-radius:8px;font-size:11px;font-weight:600}
+.badge-green{background:var(--green-l);color:var(--green-d)}
+.badge-gold{background:var(--gold-l);color:var(--gold2)}
+.badge-red{background:var(--red-l);color:var(--red)}
+.badge-blue{background:var(--blue-l);color:var(--blue)}
+.badge-purple{background:var(--purple-l);color:var(--purple)}
+.badge-gray{background:var(--gray2);color:var(--text2)}
+
+/* ── CONTINUE LESSON ── */
+.continue-card{background:var(--gray);border-radius:var(--r);padding:14px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:all .2s}
+.continue-card:hover{background:var(--gray2)}
+.continue-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.continue-info{flex:1}
+.continue-title{font-size:13px;font-weight:700;color:var(--text)}
+.continue-sub{font-size:11px;color:var(--text3);margin-top:2px}
+.continue-pct{width:36px;height:36px;border-radius:50%;border:3px solid var(--green);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--green);flex-shrink:0}
+.btn-continue{background:var(--navy);color:#fff;border:none;border-radius:9px;padding:10px 0;font-family:'Cairo',sans-serif;font-size:13px;font-weight:700;cursor:pointer;width:100%;margin-top:12px;transition:background .18s;display:flex;align-items:center;justify-content:center;gap:6px}
+.btn-continue:hover{background:var(--navy2)}
+
+/* ── UNITS ── */
+.units-scroll{display:flex;gap:12px;overflow-x:auto;padding-bottom:6px;-webkit-overflow-scrolling:touch}
+.units-scroll::-webkit-scrollbar{height:4px}.units-scroll::-webkit-scrollbar-thumb{background:var(--gray3);border-radius:2px}
+.unit-card{background:var(--white);border:1px solid var(--brd);border-radius:var(--rl);padding:14px;min-width:160px;flex-shrink:0;transition:all .2s}
+.unit-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.unit-badge{font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;display:inline-block;margin-bottom:8px}
+.unit-title{font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px}
+.unit-icon{font-size:26px;margin-bottom:8px;display:block}
+.unit-prog-bg{height:4px;background:var(--gray2);border-radius:2px;overflow:hidden;margin-bottom:6px}
+.unit-prog-fill{height:100%;border-radius:2px;transition:width 1.2s ease}
+.unit-meta{font-size:10px;color:var(--text3)}
+.btn-unit{width:100%;border:none;border-radius:8px;padding:8px;font-family:'Cairo',sans-serif;font-size:11px;font-weight:700;cursor:pointer;margin-top:8px;transition:all .18s}
+.btn-unit-green{background:var(--green);color:#fff}
+.btn-unit-green:hover{background:var(--green-d)}
+.btn-unit-navy{background:var(--navy);color:#fff}
+.btn-unit-navy:hover{background:var(--navy2)}
+.btn-unit-red{background:var(--red);color:#fff}
+.btn-unit-red:hover{background:#c0392b}
+.btn-unit-gray{background:var(--gray2);color:var(--text3);cursor:not-allowed}
+
+/* ── LEADERBOARD ── */
+.lb-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--gray2)}
+.lb-row:last-child{border:none}
+.lb-rank{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0}
+.lb-rank-1{background:#FFD700;color:#7B5800}
+.lb-rank-2{background:#C0C0C0;color:#444}
+.lb-rank-3{background:#CD7F32;color:#5C3000}
+.lb-rank-other{background:var(--gray2);color:var(--text3)}
+.lb-name{flex:1;font-size:12px;font-weight:600;color:var(--text)}
+.lb-pts{font-size:13px;font-weight:800;color:var(--navy)}
+.lb-crown{font-size:14px}
+
+/* ── ACHIEVEMENTS ── */
+.ach-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--gray2)}
+.ach-row:last-child{border:none}
+.ach-icon{font-size:24px}
+.ach-info{flex:1}
+.ach-title{font-size:12px;font-weight:700;color:var(--text)}
+.ach-sub{font-size:10px;color:var(--text3);margin-top:1px}
+
+/* ── TODAY'S TEST ── */
+.test-card{background:var(--white);border:1px solid var(--brd);border-radius:var(--rl);padding:16px;box-shadow:var(--shadow)}
+.test-meta{display:flex;gap:14px;margin-bottom:12px}
+.test-meta-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text2)}
+.btn-start-test{background:var(--green);color:#fff;border:none;border-radius:10px;padding:12px;font-family:'Cairo',sans-serif;font-size:14px;font-weight:700;cursor:pointer;width:100%;transition:background .18s}
+.btn-start-test:hover{background:var(--green-d)}
+
+/* ── REVIEW NEEDS ── */
+.review-item{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--gray2)}
+.review-item:last-child{border:none}
+.review-name{flex:1;font-size:12px;color:var(--text)}
+.review-bar{flex:2;height:5px;background:var(--gray2);border-radius:3px;overflow:hidden}
+.review-fill{height:100%;border-radius:3px}
+.review-pct{font-size:11px;font-weight:700;width:32px;text-align:left}
+
+/* ── ACTIVITY ── */
+.activity-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--gray2)}
+.activity-row:last-child{border:none}
+.act-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.act-info{flex:1}
+.act-title{font-size:11px;font-weight:600;color:var(--text)}
+.act-time{font-size:10px;color:var(--text3);margin-top:1px}
+
+/* ── QUIZ PAGE ── */
+.quiz-hdr{background:var(--navy);border-radius:var(--rl);padding:16px 20px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
+.quiz-hdr-info{color:rgba(255,255,255,.6);font-size:11px}
+.quiz-hdr-right{display:flex;align-items:center;gap:12px}
+.quiz-pts{color:var(--gold);font-size:13px;font-weight:700}
+.quiz-timer{background:rgba(255,255,255,.1);border-radius:20px;padding:5px 14px;color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;gap:5px}
+.quiz-timer.urgent{background:rgba(231,76,60,.3);border:1px solid var(--red);color:#ff8080}
+.quiz-prog{height:4px;background:rgba(255,255,255,.15);border-radius:2px;overflow:hidden;margin-top:10px}
+.quiz-prog-fill{height:100%;background:var(--gold);border-radius:2px;transition:width .5s ease}
+.q-concept-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.q-tag{font-size:10px;padding:3px 9px;border-radius:7px}
+.q-text{font-size:16px;font-weight:700;color:var(--text);line-height:1.7;margin-bottom:14px}
+.q-opts{display:grid;gap:8px}
+.q-opt{background:var(--gray);border:2px solid var(--brd);border-radius:var(--r);padding:12px 16px;cursor:pointer;font-family:'Cairo',sans-serif;font-size:13px;color:var(--text);display:flex;align-items:center;gap:10px;transition:all .18s;width:100%;text-align:right}
+.q-opt:hover{border-color:var(--gold);background:var(--gold-l)}
+.q-opt.correct{background:var(--green-l);border-color:var(--green-d);color:var(--green-d);pointer-events:none}
+.q-opt.wrong{background:var(--red-l);border-color:var(--red);color:var(--red);pointer-events:none}
+.q-opt.dimmed{pointer-events:none;opacity:.6}
+.q-opt-letter{width:30px;height:30px;border-radius:50%;background:var(--white);border:2px solid var(--brd);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;transition:all .18s}
+.q-opt.correct .q-opt-letter{background:var(--green-d);border-color:transparent;color:#fff}
+.q-opt.wrong .q-opt-letter{background:var(--red);border-color:transparent;color:#fff}
+.q-feedback{border-radius:var(--r);padding:12px 15px;font-size:12px;line-height:1.65;margin-top:10px;display:none;align-items:flex-start;gap:8px}
+.q-feedback-ok{background:var(--green-l);color:var(--green-d);display:flex}
+.q-feedback-no{background:var(--red-l);color:var(--red);display:flex}
+.q-foot{display:flex;justify-content:space-between;align-items:center;margin-top:12px}
+.btn-next-q{background:var(--gold);color:var(--navy);border:none;border-radius:var(--r);padding:11px 24px;font-family:'Cairo',sans-serif;font-size:13px;font-weight:700;cursor:pointer;display:none;transition:opacity .18s}
+.btn-next-q:hover{opacity:.88}
+
+/* ── RESULT ── */
+.result-wrap{display:none;animation:scaleIn .35s ease}
+.result-card{background:var(--white);border-radius:18px;padding:30px;text-align:center;margin-bottom:14px;box-shadow:var(--shadow-md)}
+.result-trophy{font-size:52px;margin-bottom:10px}
+.result-title{font-size:24px;font-weight:800;color:var(--navy);margin-bottom:4px}
+.result-pct{font-size:52px;font-weight:900;color:var(--gold);margin:8px 0}
+.result-sub{font-size:14px;color:var(--text2)}
+.result-stats{display:flex;justify-content:center;gap:24px;margin:16px 0}
+.rs-item{text-align:center}
+.rs-n{font-size:22px;font-weight:800;color:var(--navy)}
+.rs-l{font-size:11px;color:var(--text3)}
+.result-actions{display:flex;gap:10px;justify-content:center;margin-top:14px}
+.btn-retry{background:var(--purple);color:#fff;border:none;border-radius:var(--r);padding:11px 24px;font-family:'Cairo',sans-serif;font-size:13px;font-weight:700;cursor:pointer}
+.btn-review{background:var(--gold);color:var(--navy);border:none;border-radius:var(--r);padding:11px 24px;font-family:'Cairo',sans-serif;font-size:13px;font-weight:700;cursor:pointer}
+
+/* ── CONCEPTS PAGE ── */
+.concept-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.concept-card{background:var(--white);border:1px solid var(--brd);border-radius:var(--rl);padding:16px;cursor:pointer;transition:all .22s}
+.concept-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px);border-color:var(--gold)}
+.cc-icon{font-size:28px;margin-bottom:8px}
+.cc-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px}
+.cc-sub{font-size:11px;color:var(--text3);margin-bottom:10px}
+.cc-bar-bg{height:5px;background:var(--gray2);border-radius:3px;overflow:hidden;margin-bottom:5px}
+.cc-bar-fill{height:100%;border-radius:3px;transition:width 1.2s ease}
+.cc-pct{font-size:11px;font-weight:700}
+.cc-status{font-size:10px;padding:2px 7px;border-radius:6px;display:inline-block;margin-top:5px}
+
+/* ── REPORTS ── */
+.report-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--gray2)}
+.report-row:last-child{border:none}
+.rr-label{font-size:12px;color:var(--text)}
+.rr-bar{flex:1;height:6px;background:var(--gray2);border-radius:3px;overflow:hidden;margin:0 14px}
+.rr-fill{height:100%;border-radius:3px}
+.rr-val{font-size:12px;font-weight:700;width:36px;text-align:left}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(70px);background:var(--navy);color:#fff;padding:11px 20px;border-radius:20px;font-size:12px;z-index:200;transition:transform .3s cubic-bezier(.22,1,.36,1);display:flex;align-items:center;gap:7px;white-space:nowrap}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+/* ── SCROLLBARS ── */
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--gray3);border-radius:3px}
+
+/* ── TOOLTIP ── */
+.tooltip{position:relative}
+.tooltip::after{content:attr(data-tip);position:absolute;bottom:120%;right:50%;transform:translateX(50%);background:var(--navy);color:#fff;font-size:10px;padding:4px 8px;border-radius:6px;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .18s}
+.tooltip:hover::after{opacity:1}
+</style>
+</head>
+<body>
+
+<div class="toast" id="toast"><i class="ti ti-check" style="color:var(--green)"></i><span id="toast-msg"></span></div>
+
+<div class="shell">
+
+<!-- ══ SIDEBAR ══ -->
+<aside class="sidebar">
+  <div class="sb-logo">
+    <div class="sb-logo-inner">
+      <div class="sb-logo-icon"><i class="ti ti-book-2" style="color:var(--navy);font-size:20px"></i></div>
+      <div>
+        <div class="sb-logo-text">سَهْل</div>
+        <div class="sb-logo-sub">للقدرات العامة</div>
+      </div>
+    </div>
+  </div>
+  <div class="sb-avatar-section">
+    <div class="sb-avatar">م</div>
+    <div class="sb-uname">محمد أحمد</div>
+    <div class="sb-ulvl">أول متوسط</div>
+  </div>
+  <nav class="sb-nav">
+    <button class="sb-link active" onclick="navTo('home',this)"><i class="ti ti-layout-dashboard"></i> الرئيسية</button>
+    <button class="sb-link" onclick="navTo('concepts',this)"><i class="ti ti-books"></i> المفاهيم</button>
+    <button class="sb-link" onclick="navTo('lessons',this)"><i class="ti ti-player-play"></i> الدروس</button>
+    <button class="sb-link" onclick="navTo('quiz',this)"><i class="ti ti-pencil"></i> الاختبارات</button>
+    <button class="sb-link" onclick="navTo('worksheets',this)"><i class="ti ti-file-text"></i> أوراق العمل</button>
+    <button class="sb-link" onclick="navTo('achievements',this)"><i class="ti ti-trophy"></i> الإنجازات</button>
+    <button class="sb-link" onclick="navTo('points',this)"><i class="ti ti-star"></i> النقاط</button>
+    <button class="sb-link" onclick="navTo('reports',this)"><i class="ti ti-chart-bar"></i> التقارير</button>
+    <button class="sb-link" onclick="showToast('قريباً — ميزة المجتمع')"><i class="ti ti-users"></i> المجتمع</button>
+    <button class="sb-link" onclick="showToast('تواصل معنا على info@sahl.sa')"><i class="ti ti-help-circle"></i> المساعدة</button>
+    <button class="sb-link" onclick="showToast('الإعدادات قريباً')"><i class="ti ti-settings"></i> الإعدادات</button>
+    <button class="sb-link" style="color:rgba(255,120,100,.7)" onclick="showToast('تم تسجيل الخروج')"><i class="ti ti-logout"></i> تسجيل خروج</button>
+  </nav>
+  <div class="sb-challenge">
+    <div class="sb-challenge-crown">👑</div>
+    <div class="sb-challenge-t">اشترك في التحدي</div>
+    <div class="sb-challenge-s">نافس نفسك وحقق المزيد</div>
+    <button class="sb-challenge-btn" onclick="showToast('جارٍ تحميل التحديات...')">عرض التحديات</button>
+  </div>
+</aside>
+
+<!-- ══ MAIN ══ -->
+<div class="main-area">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="tb-left">
+      <div class="tb-search">
+        <i class="ti ti-search"></i>
+        <input type="text" placeholder="ابحث عن مفهوم أو درس..." id="search-input" oninput="handleSearch()">
+      </div>
+    </div>
+    <div class="tb-right">
+      <div class="tb-notif tooltip" data-tip="3 إشعارات جديدة" onclick="showToast('3 إشعارات — المفهوم الجديد متاح')">
+        <i class="ti ti-bell"></i>
+        <div class="tb-notif-dot">3</div>
+      </div>
+      <div style="text-align:right">
+        <div class="tb-greeting">
+          <div class="tb-greet-h">صباح الخير محمد 👋</div>
+          <div class="tb-greet-s">استمر في رحلتك نحو التميز</div>
+        </div>
+      </div>
+      <div class="tb-date">
+        <div class="tb-date-d">الخميس</div>
+        <div class="tb-date-dt">23 مايو 2024</div>
+      </div>
+      <div class="tb-streak" onclick="showToast('🔥 رائع! حافظ على سلسلتك')">
+        <div class="tb-streak-ico">🔥</div>
+        <div>
+          <div class="tb-streak-n">18</div>
+          <div class="tb-streak-l">أيام متتالية</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+  <!-- ══ HOME PAGE ══ -->
+  <div id="page-home" class="page active">
+
+    <!-- STATS -->
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-icon" style="background:var(--purple-l)"><i class="ti ti-chart-pie" style="color:var(--purple);font-size:24px"></i></div>
+        <div class="stat-info">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+            <div style="position:relative;width:52px;height:52px;flex-shrink:0">
+              <svg viewBox="0 0 52 52" style="transform:rotate(-90deg)">
+                <circle cx="26" cy="26" r="22" fill="none" stroke="var(--gray2)" stroke-width="5"/>
+                <circle cx="26" cy="26" r="22" fill="none" stroke="var(--purple)" stroke-width="5" stroke-dasharray="138.2" stroke-dashoffset="76" stroke-linecap="round"/>
+              </svg>
+              <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:12px;font-weight:800;color:var(--purple)">45%</div>
+            </div>
+            <div>
+              <div class="stat-val">45%</div>
+              <div class="stat-sub">نسبة الإنجاز</div>
+              <div class="stat-delta" style="color:var(--purple)"><i class="ti ti-trending-up" style="font-size:11px"></i>ممتاز استمر بنفس المستوى</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:var(--gold-l)"><i class="ti ti-star" style="color:var(--gold);font-size:24px"></i></div>
+        <div class="stat-info">
+          <div class="stat-val">1,620</div>
+          <div class="stat-sub">إجمالي النقاط</div>
+          <div class="stat-delta" style="color:var(--green)"><i class="ti ti-trending-up" style="font-size:11px"></i> +120 نقطة هذا الأسبوع</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:#FFF3E0"><i class="ti ti-trophy" style="color:#FF8C00;font-size:24px"></i></div>
+        <div class="stat-info">
+          <div class="stat-val">#15</div>
+          <div class="stat-sub">ترتيبك</div>
+          <div class="stat-delta" style="color:var(--text3)">من أصل 320 طالب</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:var(--green-l)"><i class="ti ti-chart-line" style="color:var(--green);font-size:24px"></i></div>
+        <div class="stat-info">
+          <div class="stat-val">84%</div>
+          <div class="stat-sub">متوسط الاختبارات</div>
+          <div class="stat-delta" style="color:var(--green)"><i class="ti ti-trending-up" style="font-size:11px"></i> أفضل من الأسبوع الماضي</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:var(--blue-l)"><i class="ti ti-clock" style="color:var(--blue);font-size:24px"></i></div>
+        <div class="stat-info">
+          <div class="stat-val">18 سا</div>
+          <div class="stat-sub">ساعات الدراسة</div>
+          <div class="stat-delta" style="color:var(--text3)">45 دقيقة هذا الأسبوع</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROW 2 -->
+    <div class="grid-3">
+      <!-- CONTINUE LESSON -->
+      <div class="card">
+        <div class="card-title"><div class="card-title-l"><i class="ti ti-arrow-right" style="color:var(--gold)"></i> استمر من آخر درس</div><i class="ti ti-chevron-left" style="color:var(--text3);cursor:pointer" onclick="showToast('عرض الكل')"></i></div>
+        <div class="continue-card" onclick="navTo('lessons',null)">
+          <div class="continue-icon" style="background:var(--gold-l)">%</div>
+          <div class="continue-info">
+            <div class="continue-title">مفهوم النسبة</div>
+            <div class="continue-sub">الوحدة الثانية - النسب</div>
+          </div>
+          <div class="continue-pct">72%</div>
+        </div>
+        <button class="btn-continue" onclick="navTo('lessons',null)"><i class="ti ti-player-play"></i> متابعة الدرس</button>
+        <div style="margin-top:14px">
+          <div class="card-title" style="margin-bottom:8px"><div class="card-title-l"><i class="ti ti-alert-triangle" style="color:var(--red)"></i> المفاهيم التي تحتاج مراجعة</div></div>
+          <div class="review-item">
+            <span class="prog-status status-low"><i class="ti ti-x" style="font-size:10px"></i></span>
+            <span class="review-name">الجبر</span>
+            <div class="review-bar"><div class="review-fill" style="width:20%;background:var(--red)"></div></div>
+            <span class="review-pct" style="color:var(--red)">20%</span>
+          </div>
+          <div class="review-item">
+            <span class="prog-status status-lock"><i class="ti ti-lock" style="font-size:10px"></i></span>
+            <span class="review-name">الهندسة</span>
+            <div class="review-bar"><div class="review-fill" style="width:30%;background:var(--gold)"></div></div>
+            <span class="review-pct" style="color:var(--gold)">30%</span>
+          </div>
+          <div class="review-item">
+            <span class="prog-status status-lock"><i class="ti ti-lock" style="font-size:10px"></i></span>
+            <span class="review-name">الإحصاء</span>
+            <div class="review-bar"><div class="review-fill" style="width:45%;background:var(--gold)"></div></div>
+            <span class="review-pct" style="color:var(--gold)">45%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONCEPTS PROGRESS -->
+      <div class="card">
+        <div class="card-title"><div class="card-title-l"><i class="ti ti-chart-bar" style="color:var(--navy)"></i> تقدمك في المفاهيم</div><a class="view-all" onclick="navTo('concepts',null)">عرض الكل</a></div>
+        <div id="home-concepts-progress"></div>
+      </div>
+
+      <!-- TODAY TEST + ACHIEVEMENTS -->
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div class="test-card">
+          <div class="card-title" style="margin-bottom:8px"><div class="card-title-l"><i class="ti ti-clipboard-check" style="color:var(--navy)"></i> اختبار اليوم</div></div>
+          <div style="font-size:11px;color:var(--text3);margin-bottom:8px">اختبار قصير على ما تعلمته اليوم</div>
+          <div class="test-meta">
+            <div class="test-meta-item"><i class="ti ti-help-circle" style="color:var(--gold)"></i> 20 سؤال</div>
+            <div class="test-meta-item"><i class="ti ti-clock" style="color:var(--blue)"></i> 10 دقائق</div>
+          </div>
+          <button class="btn-start-test" onclick="navTo('quiz',null);startQuiz()">ابدأ الاختبار</button>
+        </div>
+        <div class="card">
+          <div class="card-title"><div class="card-title-l"><i class="ti ti-trophy" style="color:var(--gold)"></i> أحدث الإنجازات</div><a class="view-all" onclick="navTo('achievements',null)">عرض الكل</a></div>
+          <div class="ach-row"><div class="ach-icon">🏆</div><div class="ach-info"><div class="ach-title">بطل الأسبوع</div><div class="ach-sub">حقق أعلى نقاط هذا الأسبوع</div></div></div>
+          <div class="ach-row"><div class="ach-icon">🔥</div><div class="ach-info"><div class="ach-title">سبعة أيام متتالية</div><div class="ach-sub">أكملت الدراسة 7 أيام متتالية</div></div></div>
+          <div class="ach-row"><div class="ach-icon">⭐</div><div class="ach-info"><div class="ach-title">متقن العمليات</div><div class="ach-sub">أتقنت مفهوم العمليات الأربع</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- UNITS ROW -->
+    <div class="card" style="margin-bottom:16px">
+      <div class="card-title"><div class="card-title-l"><i class="ti ti-layout-grid" style="color:var(--navy)"></i> الوحدات المتاحة</div><a class="view-all" onclick="navTo('lessons',null)">عرض الكل</a></div>
+      <div class="units-scroll" id="units-container"></div>
+    </div>
+
+    <!-- BOTTOM ROW -->
+    <div class="grid-2">
+      <!-- ACTIVITY -->
+      <div class="card">
+        <div class="card-title"><div class="card-title-l"><i class="ti ti-activity" style="color:var(--navy)"></i> النشاط الأخير</div></div>
+        <div class="activity-row">
+          <div class="act-icon" style="background:var(--green-l)"><i class="ti ti-check" style="color:var(--green)"></i></div>
+          <div class="act-info"><div class="act-title">إكمال اختبار النسبة المئوية</div><div class="act-time">منذ 15 دقيقة</div></div>
+          <span class="badge badge-green">✓</span>
+        </div>
+        <div class="activity-row">
+          <div class="act-icon" style="background:var(--purple-l)"><i class="ti ti-player-play" style="color:var(--purple)"></i></div>
+          <div class="act-info"><div class="act-title">مشاهدة فيديو النسب بطريقة سهلة</div><div class="act-time">منذ 45 دقيقة</div></div>
+          <span class="badge badge-purple">فيديو</span>
+        </div>
+        <div class="activity-row">
+          <div class="act-icon" style="background:var(--red-l)"><i class="ti ti-file-text" style="color:var(--red)"></i></div>
+          <div class="act-info"><div class="act-title">تم تحميل ورقة عمل للنسب</div><div class="act-time">منذ ساعة</div></div>
+          <span class="badge badge-red">PDF</span>
+        </div>
+        <div class="activity-row">
+          <div class="act-icon" style="background:var(--blue-l)"><i class="ti ti-clock" style="color:var(--blue)"></i></div>
+          <div class="act-info"><div class="act-title">اختبار زمني — 10 دقائق</div><div class="act-time">منذ ساعتين</div></div>
+          <span class="badge badge-blue">اختبار</span>
+        </div>
+      </div>
+
+      <!-- LEADERBOARD -->
+      <div class="card">
+        <div class="card-title"><div class="card-title-l"><i class="ti ti-podium" style="color:var(--gold)"></i> لوحة النقاط</div><a class="view-all" onclick="showToast('لوحة كاملة قريباً')">عرض الكل</a></div>
+        <div class="lb-row">
+          <div class="lb-rank lb-rank-1">1</div>
+          <div class="lb-name">أحمد خالد</div>
+          <div class="lb-pts">2,450</div>
+          <div class="lb-crown">👑</div>
+        </div>
+        <div class="lb-row" style="background:var(--gold-l);border-radius:8px;padding-right:8px;padding-left:8px">
+          <div class="lb-rank lb-rank-2">2</div>
+          <div class="lb-name" style="font-weight:800">محمد أحمد (أنت)</div>
+          <div class="lb-pts" style="color:var(--gold2)">1,620</div>
+          <div class="lb-crown">⭐</div>
+        </div>
+        <div class="lb-row">
+          <div class="lb-rank lb-rank-3">3</div>
+          <div class="lb-name">سلمان محمد</div>
+          <div class="lb-pts">1,500</div>
+          <div class="lb-crown">🏅</div>
+        </div>
+        <div style="margin-top:10px;background:var(--navy);border-radius:10px;padding:12px;text-align:center">
+          <div style="color:rgba(255,255,255,.55);font-size:11px;margin-bottom:3px">أنت على الطريق الصحيح!</div>
+          <div style="color:var(--gold);font-size:12px;font-weight:700">استمر في التعلم لتحقيق أهدافك</div>
+          <button style="background:var(--gold);color:var(--navy);border:none;border-radius:8px;padding:8px 16px;font-family:'Cairo',sans-serif;font-size:11px;font-weight:700;cursor:pointer;margin-top:8px" onclick="navTo('concepts',null)">اكتشف المفاهيم</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ CONCEPTS PAGE ══ -->
+  <div id="page-concepts" class="page">
+    <div style="margin-bottom:16px;display:flex;align-items:center;justify-content:space-between">
+      <div>
+        <div style="font-size:18px;font-weight:800;color:var(--text)">المفاهيم</div>
+        <div style="font-size:12px;color:var(--text3)">استكشف جميع المفاهيم وتقدمك فيها</div>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button class="badge badge-green" style="cursor:pointer;border:none" onclick="filterConcepts('all')">الكل</button>
+        <button class="badge badge-gold" style="cursor:pointer;border:none" onclick="filterConcepts('mid')">قيد التعلم</button>
+        <button class="badge badge-red" style="cursor:pointer;border:none" onclick="filterConcepts('low')">تحتاج مراجعة</button>
+      </div>
+    </div>
+    <div class="concept-grid" id="concepts-grid"></div>
+  </div>
+
+  <!-- ══ LESSONS PAGE ══ -->
+  <div id="page-lessons" class="page">
+    <div style="margin-bottom:16px">
+      <div style="font-size:18px;font-weight:800;color:var(--text);margin-bottom:4px">الدروس</div>
+      <div style="font-size:12px;color:var(--text3)">تعلم بطريقة منظمة وممتعة</div>
+    </div>
+    <div class="grid-13">
+      <!-- LESSON DETAIL SIDE -->
+      <div class="card">
+        <div class="card-title"><div class="card-title-l"><i class="ti ti-book" style="color:var(--navy)"></i> داخل المفهوم — النسبة</div></div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="background:var(--gray);border-radius:10px;padding:12px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .18s" onmouseenter="this.style.background='var(--gray2)'" onmouseleave="this.style.background='var(--gray)'" onclick="showToast('بدء فيديو تمهيدي...')">
+            <div style="width:36px;height:36px;background:var(--purple-l);border-radius:9px;display:flex;align-items:center;justify-content:center"><i class="ti ti-player-play" style="color:var(--purple)"></i></div>
+            <div style="flex:1"><div style="font-size:12px;font-weight:700;color:var(--text)">فيديو تمهيدي</div><div style="font-size:10px;color:var(--text3)">النسبة بطريقة سهلة</div></div>
+            <span class="badge badge-green">1</span>
+          </div>
+          <div style="background:var(--gray);border-radius:10px;padding:12px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .18s" onmouseenter="this.style.background='var(--gray2)'" onmouseleave="this.style.background='var(--gray)'" onclick="navTo('quiz',null);startQuiz()">
+            <div style="width:36px;height:36px;background:var(--green-l);border-radius:9px;display:flex;align-items:center;justify-content:center"><i class="ti ti-pencil" style="color:var(--green)"></i></div>
+            <div style="flex:1"><div style="font-size:12px;font-weight:700;color:var(--text)">أمثلة محلولة</div><div style="font-size:10px;color:var(--text3)">شرح تفصيلي مع أمثلة</div></div>
+            <span class="badge badge-gold">2</span>
+          </div>
+          <div style="background:var(--gray);border-radius:10px;padding:12px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .18s" onmouseenter="this.style.background='var(--gray2)'" onmouseleave="this.style.background='var(--gray)'" onclick="showToast('تحميل ورقة العمل...')">
+            <div style="width:36px;height:36px;background:var(--red-l);border-radius:9px;display:flex;align-items:center;justify-content:center"><i class="ti ti-file-text" style="color:var(--red)"></i></div>
+            <div style="flex:1"><div style="font-size:12px;font-weight:700;color:var(--text)">ورقة عمل</div><div style="font-size:10px;color:var(--text3)">تحميل وطباعة</div></div>
+            <span class="badge badge-red">3</span>
+          </div>
+          <div style="background:var(--gray);border-radius:10px;padding:12px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .18s" onmouseenter="this.style.background='var(--gray2)'" onmouseleave="this.style.background='var(--gray)'" onclick="navTo('quiz',null);startQuiz()">
+            <div style="width:36px;height:36px;background:var(--blue-l);border-radius:9px;display:flex;align-items:center;justify-content:center"><i class="ti ti-clock" style="color:var(--blue)"></i></div>
+            <div style="flex:1"><div style="font-size:12px;font-weight:700;color:var(--text)">اختبار زمني</div><div style="font-size:10px;color:var(--text3)">10 دقائق</div></div>
+            <span class="badge badge-blue">4</span>
+          </div>
+        </div>
+        <div style="margin-top:14px">
+          <div style="font-size:12px;color:var(--text2);margin-bottom:6px;font-weight:600">نسبة إتقانك للمفهوم</div>
+          <div class="prog-bg" style="height:9px;margin-bottom:5px"><div class="prog-fill" style="width:72%;background:var(--gold)"></div></div>
+          <div style="font-size:11px;color:var(--text3)">72% — يلزم الوصول إلى 90% لإتقان المفهوم</div>
+          <button class="btn-continue" style="margin-top:10px" onclick="navTo('quiz',null);startQuiz()"><i class="ti ti-player-play"></i> شرح المفهوم</button>
+          <button class="btn-continue" style="margin-top:8px;background:var(--purple)" onclick="navTo('quiz',null);startQuiz()"><i class="ti ti-pencil"></i> تدريب تفاعلي</button>
+        </div>
+      </div>
+      <!-- UNITS LIST -->
+      <div>
+        <div class="card">
+          <div class="card-title"><div class="card-title-l"><i class="ti ti-layout-grid" style="color:var(--navy)"></i> الوحدات</div></div>
+          <div id="lessons-units-list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ QUIZ PAGE ══ -->
+  <div id="page-quiz" class="page">
+    <div id="quiz-main" style="max-width:680px;margin:0 auto">
+      <div class="quiz-hdr">
+        <div>
+          <div class="quiz-hdr-info" id="q-counter">السؤال 1 من 7</div>
+          <div class="quiz-prog" style="margin-top:8px"><div class="quiz-prog-fill" id="q-prog-fill" style="width:14%"></div></div>
+        </div>
+        <div class="quiz-hdr-right">
+          <div class="quiz-pts" id="q-pts">+0 نقطة</div>
+          <div class="quiz-timer" id="q-timer"><i class="ti ti-clock" style="font-size:13px"></i> <span id="timer-val">30</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="q-concept-tags" id="q-tags"></div>
+        <div class="q-text" id="q-text"></div>
+        <div class="q-opts" id="q-opts"></div>
+        <div class="q-feedback" id="q-fb"></div>
+        <div class="q-foot">
+          <span style="font-size:11px;color:var(--text3)" id="q-note"></span>
+          <button class="btn-next-q" id="btn-next" onclick="nextQ()">التالي ←</button>
+        </div>
+      </div>
+    </div>
+    <div class="result-wrap" id="q-result" style="max-width:680px;margin:0 auto"></div>
+  </div>
+
+  <!-- ══ REPORTS PAGE ══ -->
+  <div id="page-reports" class="page">
+    <div style="font-size:18px;font-weight:800;color:var(--text);margin-bottom:16px">التقارير</div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title"><div class="card-title-l"><i class="ti ti-chart-bar" style="color:var(--navy)"></i> تقدمك في المحاور</div></div>
+        <div id="reports-axes"></div>
+      </div>
+      <div class="card">
+        <div class="card-title"><div class="card-title-l"><i class="ti ti-trending-up" style="color:var(--green)"></i> إحصائيات الأسبوع</div></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div style="background:var(--green-l);border-radius:10px;padding:14px;text-align:center"><div style="font-size:24px;font-weight:800;color:var(--green-d)">12</div><div style="font-size:11px;color:var(--green-d)">درس مكتمل</div></div>
+          <div style="background:var(--gold-l);border-radius:10px;padding:14px;text-align:center"><div style="font-size:24px;font-weight:800;color:var(--gold2)">87%</div><div style="font-size:11px;color:var(--gold2)">متوسط الاختبارات</div></div>
+          <div style="background:var(--blue-l);border-radius:10px;padding:14px;text-align:center"><div style="font-size:24px;font-weight:800;color:var(--blue)">45</div><div style="font-size:11px;color:var(--blue)">دقيقة يومياً</div></div>
+          <div style="background:var(--purple-l);border-radius:10px;padding:14px;text-align:center"><div style="font-size:24px;font-weight:800;color:var(--purple)">320</div><div style="font-size:11px;color:var(--purple)">نقطة مكتسبة</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ ACHIEVEMENTS PAGE ══ -->
+  <div id="page-achievements" class="page">
+    <div style="font-size:18px;font-weight:800;color:var(--text);margin-bottom:16px">الإنجازات</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px" id="achievements-grid"></div>
+  </div>
+
+  <!-- ══ POINTS PAGE ══ -->
+  <div id="page-points" class="page">
+    <div style="font-size:18px;font-weight:800;color:var(--text);margin-bottom:16px">النقاط والمكافآت</div>
+    <div class="grid-2">
+      <div class="card" style="text-align:center;padding:28px">
+        <div style="font-size:52px;font-weight:900;color:var(--gold)">1,620</div>
+        <div style="font-size:14px;color:var(--text2);margin-bottom:16px">إجمالي نقاطك</div>
+        <div style="display:flex;justify-content:center;gap:14px">
+          <div style="background:var(--green-l);border-radius:10px;padding:10px 16px;text-align:center"><div style="font-size:18px;font-weight:700;color:var(--green-d)">+120</div><div style="font-size:10px;color:var(--green-d)">هذا الأسبوع</div></div>
+          <div style="background:var(--blue-l);border-radius:10px;padding:10px 16px;text-align:center"><div style="font-size:18px;font-weight:700;color:var(--blue)">+450</div><div style="font-size:10px;color:var(--blue)">هذا الشهر</div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title"><div class="card-title-l"><i class="ti ti-podium" style="color:var(--gold)"></i> المتصدرون</div></div>
+        <div class="lb-row"><div class="lb-rank lb-rank-1">1</div><div class="lb-name">أحمد خالد</div><div class="lb-pts">2,450</div><div class="lb-crown">👑</div></div>
+        <div class="lb-row" style="background:var(--gold-l);border-radius:8px;padding:9px 8px"><div class="lb-rank lb-rank-2">2</div><div class="lb-name" style="font-weight:800">أنت — محمد أحمد</div><div class="lb-pts" style="color:var(--gold2)">1,620</div><div class="lb-crown">⭐</div></div>
+        <div class="lb-row"><div class="lb-rank lb-rank-3">3</div><div class="lb-name">سلمان محمد</div><div class="lb-pts">1,500</div><div class="lb-crown">🏅</div></div>
+        <div class="lb-row"><div class="lb-rank lb-rank-other">4</div><div class="lb-name">فيصل العمري</div><div class="lb-pts">1,380</div></div>
+        <div class="lb-row"><div class="lb-rank lb-rank-other">5</div><div class="lb-name">ريم الأحمد</div><div class="lb-pts">1,200</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ OTHER PAGES ══ -->
+  <div id="page-worksheets" class="page">
+    <div style="font-size:18px;font-weight:800;color:var(--text);margin-bottom:16px">أوراق العمل</div>
+    <div class="concept-grid" id="worksheets-grid"></div>
+  </div>
+
+  </div><!-- /content -->
+</div><!-- /main-area -->
+</div><!-- /shell -->
+
+<script>
+// ─── STATE ───
+let currentPage='home', cq=0, pts=0, xp=1620, answered=false, cor=0, timerID;
+
+// ─── DATA ───
+const conceptsData=[
+  {id:'c1',title:'التفكير الرياضي',icon:'🧮',sub:'أساسيات التفكير الرياضي',pct:85,color:'var(--green)',status:'done'},
+  {id:'c2',title:'النسب',icon:'%',sub:'النسبة والتناسب',pct:60,color:'var(--gold)',status:'mid'},
+  {id:'c3',title:'الجبر',icon:'x²',sub:'المعادلات والمتغيرات',pct:20,color:'var(--red)',status:'low'},
+  {id:'c4',title:'الهندسة',icon:'📐',sub:'الأشكال والقياسات',pct:0,color:'var(--text3)',status:'lock'},
+  {id:'c5',title:'الإحصاء',icon:'📊',sub:'تحليل البيانات',pct:0,color:'var(--text3)',status:'lock'},
+  {id:'c6',title:'حل المسائل',icon:'💡',sub:'استراتيجيات الحل',pct:0,color:'var(--text3)',status:'lock'},
+  {id:'c7',title:'التناظر اللفظي',icon:'🔤',sub:'العلاقات اللغوية',pct:72,color:'var(--purple)',status:'mid'},
+  {id:'c8',title:'المفردات',icon:'📚',sub:'الثروة اللغوية',pct:65,color:'var(--blue)',status:'mid'},
+];
+
+const unitsData=[
+  {n:'الوحدة 1',title:'التفكير الرياضي',icon:'🧮',badge:'1',badgeColor:'#7B68EE',pct:85,done:'6/6',btnClass:'btn-unit-green',btnText:'دخول'},
+  {n:'الوحدة 2',title:'النسب',icon:'%',badge:'2',badgeColor:'var(--gold2)',pct:60,done:'4/7',btnClass:'btn-unit-navy',btnText:'دخول'},
+  {n:'الوحدة 3',title:'الجبر',icon:'x²',badge:'3',badgeColor:'var(--red)',pct:20,done:'1/8',btnClass:'btn-unit-red',btnText:'دخول'},
+  {n:'الوحدة 4',title:'الهندسة',icon:'📐',badge:'4',badgeColor:'#888',pct:0,done:'0/7',btnClass:'btn-unit-gray',btnText:'مقفل'},
+  {n:'الوحدة 5',title:'الإحصاء',icon:'📊',badge:'5',badgeColor:'#888',pct:0,done:'0/6',btnClass:'btn-unit-gray',btnText:'مقفل'},
+];
+
+const achievementsData=[
+  {ico:'🏆',name:'بطل الأسبوع',desc:'حقق أعلى نقاط هذا الأسبوع',unlocked:true},
+  {ico:'🔥',name:'سبعة أيام متتالية',desc:'أكملت الدراسة 7 أيام متتالية',unlocked:true},
+  {ico:'⭐',name:'متقن العمليات',desc:'أتقنت مفهوم العمليات الأربع',unlocked:true},
+  {ico:'🧠',name:'عبقري الرياضيات',desc:'100% في اختبار التفكير الرياضي',unlocked:false},
+  {ico:'📚',name:'القارئ النشيط',desc:'أكمل 10 دروس متتالية',unlocked:false},
+  {ico:'🎯',name:'الدقة المثالية',desc:'أجب بشكل صحيح على 20 سؤالاً متتالياً',unlocked:false},
+  {ico:'👑',name:'ملك النقاط',desc:'احتل المركز الأول لأسبوع كامل',unlocked:false},
+  {ico:'💎',name:'الماسة الزرقاء',desc:'اجمع 5000 نقطة',unlocked:false},
+];
+
+const quizQs=[
+  {ax:'لفظي',tags:[{t:'تناظر لفظي',c:'badge-purple'},{t:'إدراك العلاقة',c:'badge-blue'}],
+   q:'كتاب : قراءة ← قلم : ___',opts:['كتابة','حبر','ورقة','مداد'],a:0,
+   ex:'القلم أداة للكتابة كما الكتاب وسيلة للقراءة — علاقة أداة باستخدامها.'},
+  {ax:'كمي',tags:[{t:'متتالية',c:'badge-gold'},{t:'نمط رقمي',c:'badge-green'}],
+   q:'3، 7، 12، 18، ___',opts:['22','24','25','26'],a:2,
+   ex:'الفروق 4،5،6،7 تزيد بمقدار 1. إذن 18+7=25'},
+  {ax:'استنتاجي',tags:[{t:'استنتاج',c:'badge-green'},{t:'منطق',c:'badge-blue'}],
+   q:'كل الفاكهة حلوة. الموز فاكهة. إذن:',opts:['بعض الفاكهة حلوة','الموز حلو','الحلو فاكهة','لا يمكن الجزم'],a:1,
+   ex:'"بعض" خطأ لأن المعطى قال "كل". الاستنتاج المباشر من مقدمتين هو الإجابة الصحيحة.'},
+  {ax:'لفظي',tags:[{t:'مفردات',c:'badge-purple'},{t:'معنى الكلمة',c:'badge-blue'}],
+   q:'ما أقرب معنى لكلمة "وجيز"؟',opts:['طويل','مختصر','غامض','معقد'],a:1,
+   ex:'وجيز = مختصر وموجز، من أكثر الكلمات شيوعاً في اختبار القدرات اللفظية.'},
+  {ax:'كمي',tags:[{t:'مسألة كلامية',c:'badge-gold'},{t:'معادلة',c:'badge-green'}],
+   q:'عمر علي ضعف عمر سامي، ومجموعهما 36. ما عمر سامي؟',opts:['9','12','18','24'],a:1,
+   ex:'سامي=س، علي=2س → 3س=36 → س=12'},
+  {ax:'استنتاجي',tags:[{t:'خطأ منطقي',c:'badge-green'},{t:'حجة',c:'badge-blue'}],
+   q:'الأطباء متعلمون. سعد متعلم. إذن سعد طبيب؟',opts:['صواب','خطأ — لا يلزم','ربما صواب','لا يمكن الجزم'],a:1,
+   ex:'أ→ب لا يعني ب→أ. كون سعد متعلماً لا يجعله طبيباً بالضرورة.'},
+  {ax:'كمي',tags:[{t:'متتالية مركّبة',c:'badge-gold'},{t:'مربعات',c:'badge-green'}],
+   q:'ما الرقم التالي: 1، 3، 6، 10، 15، ___',opts:['18','20','21','24'],a:2,
+   ex:'أعداد مثلثية: الفروق 2،3،4،5،6 → 15+6=21'},
+];
+
+const axesData=[
+  {n:'التفكير الرياضي',v:85,c:'var(--green)',icon:'🧮',status:'done'},
+  {n:'النسب',v:60,c:'var(--gold)',icon:'%',status:'mid'},
+  {n:'الجبر',v:20,c:'var(--red)',icon:'x²',status:'low'},
+  {n:'الهندسة',v:0,c:'var(--text3)',icon:'📐',status:'lock'},
+  {n:'الإحصاء',v:0,c:'var(--text3)',icon:'📊',status:'lock'},
+  {n:'حل المسائل',v:0,c:'var(--text3)',icon:'💡',status:'lock'},
+];
+
+// ─── NAVIGATION ───
+function navTo(page, btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.sb-link').forEach(b=>b.classList.remove('active'));
+  const el=document.getElementById('page-'+page);
+  if(el) el.classList.add('active');
+  if(btn) btn.classList.add('active');
+  else {
+    document.querySelectorAll('.sb-link').forEach(b=>{
+      if(b.getAttribute('onclick')&&b.getAttribute('onclick').includes("'"+page+"'")) b.classList.add('active');
+    });
+  }
+  currentPage=page;
+  clearInterval(timerID);
+}
+
+// ─── TOAST ───
+function showToast(msg){
+  const t=document.getElementById('toast');
+  document.getElementById('toast-msg').textContent=msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+// ─── SEARCH ───
+function handleSearch(){
+  const v=document.getElementById('search-input').value.trim();
+  if(v.length>2) showToast('بحث: '+v+'...');
+}
+
+// ─── BUILD HOME ───
+function buildHomeConcepts(){
+  const el=document.getElementById('home-concepts-progress');
+  if(!el) return;
+  const statusIcons={done:'ti-check',mid:'ti-minus',low:'ti-x',lock:'ti-lock'};
+  const statusCls={done:'status-done',mid:'status-mid',low:'status-low',lock:'status-lock'};
+  el.innerHTML=axesData.map(a=>`
+    <div class="prog-item">
+      <div class="prog-head">
+        <div class="prog-label">
+          <span class="prog-status ${statusCls[a.status]}"><i class="ti ${statusIcons[a.status]}" style="font-size:10px"></i></span>
+          <span class="prog-icon">${a.icon}</span>
+          <span>${a.n}</span>
+        </div>
+        <span class="prog-pct" style="color:${a.c}">${a.v}%</span>
+      </div>
+      <div class="prog-bg"><div class="prog-fill" style="width:${a.v}%;background:${a.c}"></div></div>
+    </div>`).join('');
+}
+
+// ─── BUILD UNITS ───
+function buildUnits(){
+  const el=document.getElementById('units-container');
+  if(!el) return;
+  el.innerHTML=unitsData.map(u=>`
+    <div class="unit-card">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+        <span class="unit-badge" style="background:${u.badgeColor}20;color:${u.badgeColor}">${u.n}</span>
+        <span style="font-size:22px">${u.icon}</span>
+      </div>
+      <div class="unit-title">${u.title}</div>
+      <div class="unit-prog-bg"><div class="unit-prog-fill" style="width:${u.pct}%;background:${u.badgeColor}"></div></div>
+      <div class="unit-meta">${u.done} مفاهيم</div>
+      <button class="btn-unit ${u.btnClass}" onclick="${u.btnClass==='btn-unit-gray'?`showToast('هذه الوحدة مقفلة — أكمل الوحدات السابقة أولاً')`:`navTo('lessons',null)`}">${u.btnText}</button>
+    </div>`).join('');
+}
+
+// ─── BUILD CONCEPTS ───
+let conceptFilter='all';
+function buildConcepts(){
+  const el=document.getElementById('concepts-grid');
+  if(!el) return;
+  const filtered=conceptsData.filter(c=>conceptFilter==='all'||c.status===conceptFilter||(conceptFilter==='mid'&&c.status==='mid')||(conceptFilter==='low'&&c.status==='low'));
+  const statusLabels={done:'متقن',mid:'قيد التعلم',low:'يحتاج مراجعة',lock:'مقفل'};
+  const statusBadge={done:'badge-green',mid:'badge-gold',low:'badge-red',lock:'badge-gray'};
+  el.innerHTML=filtered.map(c=>`
+    <div class="concept-card" onclick="showToast('فتح مفهوم: ${c.title}')">
+      <div class="cc-icon">${c.icon}</div>
+      <div class="cc-title">${c.title}</div>
+      <div class="cc-sub">${c.sub}</div>
+      <div class="cc-bar-bg"><div class="cc-bar-fill" style="width:${c.pct}%;background:${c.color}"></div></div>
+      <div class="cc-pct" style="color:${c.color}">${c.pct}%</div>
+      <div class="cc-status ${statusBadge[c.status]}">${statusLabels[c.status]}</div>
+    </div>`).join('');
+}
+function filterConcepts(f){conceptFilter=f;buildConcepts();}
+
+// ─── BUILD UNITS LIST ───
+function buildLessonsUnits(){
+  const el=document.getElementById('lessons-units-list');
+  if(!el) return;
+  const colors={done:'var(--green)',mid:'var(--gold)',low:'var(--red)',lock:'var(--text3)'};
+  el.innerHTML=unitsData.map(u=>`
+    <div style="display:flex;align-items:center;gap:12px;padding:10px;border-radius:10px;cursor:pointer;transition:background .18s;border:1px solid var(--brd);margin-bottom:8px" onmouseenter="this.style.background='var(--gray)'" onmouseleave="this.style.background=''" onclick="showToast('فتح ${u.title}')">
+      <div style="width:40px;height:40px;background:${u.badgeColor}20;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">${u.icon}</div>
+      <div style="flex:1">
+        <div style="font-size:12px;font-weight:700;color:var(--text)">${u.title}</div>
+        <div style="height:4px;background:var(--gray2);border-radius:2px;overflow:hidden;margin:4px 0"><div style="width:${u.pct}%;height:100%;border-radius:2px;background:${u.badgeColor};transition:width 1s ease"></div></div>
+        <div style="font-size:10px;color:var(--text3)">${u.done} مفاهيم · ${u.pct}%</div>
+      </div>
+      <button style="background:${u.btnClass==='btn-unit-gray'?'var(--gray2)':'var(--navy)'};color:${u.btnClass==='btn-unit-gray'?'var(--text3)':'#fff'};border:none;border-radius:8px;padding:7px 14px;font-family:'Cairo',sans-serif;font-size:11px;font-weight:700;cursor:pointer" onclick="event.stopPropagation();${u.btnClass==='btn-unit-gray'?`showToast('مقفل — أكمل الوحدات السابقة')`:`showToast('فتح ${u.title}')`}">${u.btnText}</button>
+    </div>`).join('');
+}
+
+// ─── BUILD REPORTS ───
+function buildReports(){
+  const el=document.getElementById('reports-axes');
+  if(!el) return;
+  const statusIcons={done:'ti-check',mid:'ti-minus',low:'ti-x',lock:'ti-lock'};
+  const statusCls={done:'status-done',mid:'status-mid',low:'status-low',lock:'status-lock'};
+  el.innerHTML=axesData.map(a=>`
+    <div class="report-row">
+      <div class="rr-label" style="display:flex;align-items:center;gap:6px;width:130px">
+        <span class="prog-status ${statusCls[a.status]}"><i class="ti ${statusIcons[a.status]}" style="font-size:10px"></i></span>${a.n}
+      </div>
+      <div class="rr-bar"><div class="rr-fill" style="width:${a.v}%;background:${a.c}"></div></div>
+      <div class="rr-val" style="color:${a.c}">${a.v}%</div>
+    </div>`).join('');
+}
+
+// ─── BUILD ACHIEVEMENTS ───
+function buildAchievements(){
+  const el=document.getElementById('achievements-grid');
+  if(!el) return;
+  el.innerHTML=achievementsData.map(a=>`
+    <div style="background:var(--white);border:1px solid var(--brd);border-radius:var(--rl);padding:18px;text-align:center;transition:all .2s;${!a.unlocked?'opacity:.4;filter:grayscale(1)':''}" class="card" onmouseenter="this.style.transform='translateY(-2px)'" onmouseleave="this.style.transform=''">
+      <div style="font-size:34px;margin-bottom:8px">${a.ico}</div>
+      <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px">${a.name}</div>
+      <div style="font-size:10px;color:var(--text3)">${a.desc}</div>
+      ${a.unlocked?`<div class="badge badge-gold" style="margin-top:8px">مكتسب ✓</div>`:''}
+    </div>`).join('');
+}
+
+// ─── BUILD WORKSHEETS ───
+function buildWorksheets(){
+  const el=document.getElementById('worksheets-grid');
+  if(!el) return;
+  const ws=[{ico:'📄',n:'ورقة عمل — النسب',sub:'12 سؤالاً تدريجياً',clr:'var(--gold)'},{ico:'📄',n:'ورقة عمل — الجبر',sub:'10 أسئلة مع الحل',clr:'var(--purple)'},{ico:'📄',n:'ورقة عمل — التناظر',sub:'15 سؤالاً لفظياً',clr:'var(--blue)'},{ico:'📄',n:'اختبار تجريبي شامل',sub:'20 سؤالاً مختلطاً',clr:'var(--green)'}];
+  el.innerHTML=ws.map(w=>`
+    <div class="concept-card" onclick="showToast('تحميل ${w.n}...')">
+      <div style="font-size:28px;margin-bottom:8px">${w.ico}</div>
+      <div class="cc-title">${w.n}</div>
+      <div class="cc-sub">${w.sub}</div>
+      <button style="background:${w.clr};color:#fff;border:none;border-radius:8px;padding:9px;font-family:'Cairo',sans-serif;font-size:12px;font-weight:700;cursor:pointer;width:100%;margin-top:10px"><i class="ti ti-download"></i> تحميل PDF</button>
+    </div>`).join('');
+}
+
+// ─── QUIZ ───
+function startQuiz(){cq=0;pts=0;answered=false;cor=0;document.getElementById('q-result').style.display='none';document.getElementById('quiz-main').style.display='block';loadQ();}
+function loadQ(){
+  if(cq>=quizQs.length){endQuiz();return;}
+  answered=false;clearInterval(timerID);
+  let s=30;
+  const tv=document.getElementById('timer-val');
+  const tp=document.getElementById('q-timer');
+  tv.textContent=s;tp.classList.remove('urgent');
+  timerID=setInterval(()=>{s--;tv.textContent=s;if(s<=8)tp.classList.add('urgent');if(s<=0){clearInterval(timerID);autoFail();}},1000);
+  const q=quizQs[cq];
+  document.getElementById('q-counter').textContent=`السؤال ${cq+1} من ${quizQs.length}`;
+  document.getElementById('q-prog-fill').style.width=Math.round(((cq+1)/quizQs.length)*100)+'%';
+  document.getElementById('q-tags').innerHTML=q.tags.map(t=>`<span class="badge ${t.c} q-tag">${t.t}</span>`).join('');
+  document.getElementById('q-text').textContent=q.q;
+  document.getElementById('q-note').textContent=`${q.tags.length} مفاهيم في هذا السؤال`;
+  document.getElementById('btn-next').style.display='none';
+  const fb=document.getElementById('q-fb');fb.style.display='none';fb.className='q-feedback';
+  document.getElementById('q-opts').innerHTML=q.opts.map((o,i)=>`
+    <button class="q-opt" onclick="pickOpt(${i},event)">
+      <span class="q-opt-letter">${['أ','ب','ج','د'][i]}</span><span>${o}</span>
+    </button>`).join('');
+}
+
+function pickOpt(i,e){
+  if(answered)return;clearInterval(timerID);answered=true;
+  const q=quizQs[cq];
+  document.querySelectorAll('.q-opt').forEach(b=>b.classList.add('dimmed'));
+  document.querySelectorAll('.q-opt')[i].classList.remove('dimmed');
+  document.querySelectorAll('.q-opt')[i].classList.add(i===q.a?'correct':'wrong');
+  if(i!==q.a) document.querySelectorAll('.q-opt')[q.a].classList.add('correct');
+  if(i===q.a){pts+=50;xp+=50;cor++;document.getElementById('q-pts').textContent=`+${pts} نقطة`;}
+  const fb=document.getElementById('q-fb');
+  fb.innerHTML=`<i class="ti ti-${i===q.a?'check':'x'}" style="font-size:16px;flex-shrink:0;margin-top:1px"></i><span>${q.ex}</span>`;
+  fb.className='q-feedback '+(i===q.a?'q-feedback-ok':'q-feedback-no');
+  if(cq<quizQs.length-1) document.getElementById('btn-next').style.display='block';
+  else setTimeout(endQuiz,900);
+}
+
+function autoFail(){
+  if(answered)return;answered=true;
+  const q=quizQs[cq];
+  document.querySelectorAll('.q-opt').forEach(b=>b.classList.add('dimmed'));
+  document.querySelectorAll('.q-opt')[q.a].classList.add('correct');
+  const fb=document.getElementById('q-fb');
+  fb.innerHTML=`<i class="ti ti-clock" style="font-size:16px;flex-shrink:0"></i><span>انتهى الوقت — ${q.ex}</span>`;
+  fb.className='q-feedback q-feedback-no';
+  if(cq<quizQs.length-1) document.getElementById('btn-next').style.display='block';
+  else setTimeout(endQuiz,900);
+}
+
+function nextQ(){cq++;loadQ();}
+function endQuiz(){
+  clearInterval(timerID);
+  document.getElementById('quiz-main').style.display='none';
+  const res=document.getElementById('q-result');res.style.display='block';
+  const pct=Math.round((cor/quizQs.length)*100);
+  const msg=pct>=85?'أداء رائع! استمر هكذا':pct>=65?'جيد جداً، واصل التدريب':'راجع الشروحات ثم أعد الاختبار';
+  res.innerHTML=`
+    <div class="result-card">
+      <div class="result-trophy">${pct>=85?'🏆':pct>=65?'⭐':'📚'}</div>
+      <div class="result-title">أحسنت يا محمد!</div>
+      <div class="result-pct">${pct}%</div>
+      <div class="result-sub">${msg}</div>
+      <div style="font-size:12px;color:var(--text3);margin:6px 0">فقط ${100-pct}% للوصول لإتقان المفهوم</div>
+      <div class="result-stats">
+        <div class="rs-item"><div class="rs-n" style="color:var(--green)">${cor}</div><div class="rs-l">صحيح</div></div>
+        <div class="rs-item"><div class="rs-n" style="color:var(--red)">${quizQs.length-cor}</div><div class="rs-l">خطأ</div></div>
+        <div class="rs-item"><div class="rs-n" style="color:var(--gold)">+${pts}</div><div class="rs-l">نقطة</div></div>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;justify-content:center">
+      <button class="btn-retry" onclick="startQuiz()"><i class="ti ti-refresh"></i> إعادة التدريب</button>
+      <button class="btn-review" onclick="navTo('lessons',null)"><i class="ti ti-arrow-right"></i> الانتقال للمراجعة</button>
+    </div>`;
+}
+
+// ─── INIT ───
+buildHomeConcepts();
+buildUnits();
+buildConcepts();
+buildLessonsUnits();
+buildReports();
+buildAchievements();
+buildWorksheets();
+loadQ();
+</script>
+</body>
+</html>
